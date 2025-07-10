@@ -1,0 +1,38 @@
+.product-details {
+  padding: 2rem;
+  max-width: 1000px;
+  margin: auto;
+  font-family: 'Inter', sans-serif;
+  color: #333;
+}
+
+.details-title {
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  font-weight: bold;
+}
+
+.details-content {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  align-items: flex-start;
+}
+
+.details-image img {
+  max-width: 300px;
+  width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.details-info {
+  flex: 1;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.details-info p {
+  margin-bottom: 0.8rem;
+}
