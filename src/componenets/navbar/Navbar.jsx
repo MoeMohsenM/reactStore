@@ -13,7 +13,7 @@ function Navbar() {
 
       <ul className="navbar__links">
         <li><Link to="/about">About</Link></li>
-        <li><Link to="/details/:id">Details</Link></li>
+        {/* <li><Link to="/details/:id">Details</Link></li> */}
         <li><Link to="/login">Login</Link></li>
         <li><Link to="/register">Register</Link></li>
         <li>

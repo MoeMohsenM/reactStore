@@ -1,13 +1,22 @@
-import { useParams, useLocation } from "react-router-dom";
-import "./Details.css"
+import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import "./Details.css";
 
 function Details() {
   const { id } = useParams();
-  const location = useLocation();
-  const product = location.state?.product;
+  const [product, setProduct] = useState(null);
 
+
+  // I REFETCHED AGAIN SO THAT I  CAN BE ABLE TO NAVIGATE PRODUCTS THROUGH THEIR ID IN URL 
+  useEffect(() => {
+    fetch(`https://dummyjson.com/products/${id}`)
+      .then((res) => res.json())
+      .then((data) => setProduct(data))
+      .catch((error) => console.error("Failed to fetch product", error));
+  }, [id]);
+////////////////////////////////////////////////////////////////////////////////////////////a
   if (!product) {
-    return <p>Product data not found</p>;
+    return <p>Loading product data...</p>;
   }
 
   return (

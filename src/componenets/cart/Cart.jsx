@@ -1,16 +1,23 @@
 import React from "react";
 import { useCartContext } from "../../context/cartContext/useCartContext";
 import "./Cart.css";
+import { useNavigate } from "react-router-dom";
 
 function Cart() {
   const { cartItems, removeFromCart, updateQuantity } = useCartContext();
+   const navigate = useNavigate();
 
   return (
     <div className="cart">
       <h2>🛒 Your Cart</h2>
 
       {cartItems.length === 0 ? (
-        <p className="empty-cart">Your cart is empty.</p>
+        <div className="empty-cart-section">
+          <p className="empty-cart">Your cart is empty.</p>
+          <button className="go-home-btn" onClick={() => navigate("/")}>
+             Add Products!
+          </button>
+        </div>
       ) : (
         <ul className="cart-list">
           {cartItems.map((item) => (
