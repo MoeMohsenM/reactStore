@@ -1,37 +1,49 @@
-import { useState } from "react";
-import { useCartContext } from "../../context/cartContext/useCartContext";
-import "./ProductCard.css"; // ✅ Import styles
-import { Navigate, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  addToCart,
+  incrementQuantity,
+  decrementQuantity,
+} from "../../store/cartSlice";
+import { useNavigate } from "react-router-dom";
+import "./ProductCard.css";
 
 function ProductCard({ product }) {
-  const [counter, setCounter] = useState(0);
-  const { addToCart } = useCartContext();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-const handleIncrease = (e) => {
-  e.preventDefault();
-  e.stopPropagation(); 
-  if (counter < product.stock) setCounter(counter + 1);
-};
+  const inCart = useSelector((state) =>
+    state.cart.cartItems.find((item) => item.id === product.id)
+  );
 
-const handleDecrease = (e) => {
-  e.preventDefault();
-  e.stopPropagation(); 
-  if (counter > 0) setCounter(counter - 1);
-};
+  const quantity = inCart?.quantity || 0;
 
-const handleAddToCart = (e) => {
-  e.preventDefault();
-  e.stopPropagation(); 
-  if (counter > 0) {
-    addToCart({ ...product, quantity: counter });
-    setCounter(1);
-  }
-};
+  const handleIncrease = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (inCart) {
+      if (quantity < product.stock) {
+        dispatch(incrementQuantity(product.id));
+      }
+    } else {
+      dispatch(addToCart({ ...product, quantity: 1 }));
+    }
+  };
 
+  const handleDecrease = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (quantity > 0) {
+      dispatch(decrementQuantity(product.id));
+    }
+  };
 
-const navigate =useNavigate()
-const detailClick = () => {
-    // e.preventDefault()
+  const handleAddToCart = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    dispatch(addToCart({ ...product, quantity: 1 }));
+  };
+
+  const detailClick = () => {
     navigate(`/details/${product.id}`, { state: { product } });
   };
 
@@ -42,20 +54,24 @@ const detailClick = () => {
       <h4>In stock: {product.stock}</h4>
       <p className="description">{product.description}</p>
       <p className="rating">⭐ {product.rating}</p>
-
       <div className="quantity-controls">
-        <button onClick={handleDecrease} disabled={counter === 0}>−</button>
-        <span>{counter}</span>
-        <button onClick={handleIncrease} disabled={counter === product.stock}>+</button>
+        <button onClick={handleDecrease} disabled={quantity === 0}>
+          −
+        </button>
+        <span>{quantity}</span>
+        <button onClick={handleIncrease} disabled={quantity === product.stock}>
+          +
+        </button>
       </div>
-
       <button
         className="add-to-cart-btn"
         onClick={handleAddToCart}
-        disabled={counter === 0}
+        // disabled={inCart}
       >
-        🛒 Add {counter} to Cart
+        {inCart ? "✅ In Cart" : "🛒 Add to Cart"}
       </button>
+    
+      {inCart && <p className="in-cart-msg">✅ In cart: {quantity}</p>}
     </div>
   );
 }

@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import "./Details.css";
+import { axiosInstance } from "../../network/interveptor";
 
 function Details() {
   const { id } = useParams();
@@ -8,12 +9,19 @@ function Details() {
 
 
   // I REFETCHED AGAIN SO THAT I  CAN BE ABLE TO NAVIGATE PRODUCTS THROUGH THEIR ID IN URL 
-  useEffect(() => {
-    fetch(`https://dummyjson.com/products/${id}`)
-      .then((res) => res.json())
-      .then((data) => setProduct(data))
-      .catch((error) => console.error("Failed to fetch product", error));
-  }, [id]);
+  // useEffect(() => {
+  //   fetch(`https://dummyjson.com/products/${id}`)
+  //     .then((res) => res.json())
+  //     .then((data) => setProduct(data))
+  //     .catch((error) => console.error("Failed to fetch product", error));
+  // }, [id]);
+
+  
+      useEffect(()=>{
+          axiosInstance.get(`${id}`).then((res)=>{
+              setProduct(res.data)
+          })
+      },[id])
 ////////////////////////////////////////////////////////////////////////////////////////////a
   if (!product) {
     return <p>Loading product data...</p>;
