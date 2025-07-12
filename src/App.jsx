@@ -1,15 +1,15 @@
 import "./App.css";
-import Navbar from "./componenets/navbar/Navbar";
-import ProductList from "./componenets/productList/ProductList";
-import Footer from "./componenets/footer/Footer";
+import Navbar from "./components/navbar/Navbar";
+import ProductList from "./components/productList/ProductList";
+import Footer from "./components/footer/Footer";
 import { Route, Routes } from "react-router-dom";
 import { Suspense } from "react";
-import About from "./componenets/about/about";
-import Cart from "./componenets/cart/Cart";
-import RegisterForm from "./componenets/regiser/Register";
-import LoginForm from "./componenets/login/Login";
-import Details from "./componenets/details/Details";
-import ProtectedRoute from "./componenets/protected/ProtectedRoute";
+import About from "./components/about/about";
+import Cart from "./components/cart/Cart";
+import RegisterForm from "./components/regiser/Register";
+import LoginForm from "./components/login/Login";
+import Details from "./components/details/Details";
+import ProtectedRoute from "./components/protected/ProtectedRoute";
 
 function App() {
   return (
