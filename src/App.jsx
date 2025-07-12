@@ -4,7 +4,7 @@ import ProductList from "./components/productList/ProductList";
 import Footer from "./components/footer/Footer";
 import { Route, Routes } from "react-router-dom";
 import { Suspense } from "react";
-import About from "./components/about/about";
+import About from "./components/about/About";
 import Cart from "./components/cart/Cart";
 import RegisterForm from "./components/regiser/Register";
 import LoginForm from "./components/login/Login";
